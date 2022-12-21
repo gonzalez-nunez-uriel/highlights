@@ -20,8 +20,15 @@ namespace Highlights.Controllers
         }
 
         // GET: Books
-        public async Task<IActionResult> Index()
+        public async Task<IActionResult> Index(int? id, string? topic)
         {
+            // Is this the right thing? What is thne standard?
+            if (id == null || topic == null || _context.Book == null)
+            {
+                return NotFound();
+            }
+
+            ViewData["Topic"] = topic;
             var highlightsContext = _context.Book.Include(b => b.Topic);
             return View(await highlightsContext.ToListAsync());
         }
