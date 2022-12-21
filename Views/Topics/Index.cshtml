@@ -11,14 +11,9 @@
     </p>
 </header>
 
-<table class="table">
-    <tbody>
-@foreach (var item in Model) {
-        <tr>
-            <td>
-                @Html.DisplayFor(modelItem => item.Name)
-            </td>
-        </tr>
+<ul class="text-center">
+@foreach (var item in Model)
+{
+    <p><a class="btn btn-primary" asp-controller="Books" asp-action="Index" asp-route-id="@item.Id" asp-route-topic="@item.Name">@Html.DisplayFor(modelItem => item.Name)</a></p>
 }
-    </tbody>
-</table>
+</ul>
