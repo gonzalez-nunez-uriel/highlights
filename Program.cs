@@ -1,4 +1,9 @@
+using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.DependencyInjection;
+using Highlights.Data;
 var builder = WebApplication.CreateBuilder(args);
+builder.Services.AddDbContext<HighlightsContext>(options =>
+    options.UseSqlite(builder.Configuration.GetConnectionString("HighlightsContext") ?? throw new InvalidOperationException("Connection string 'HighlightsContext' not found.")));
 
 // Add services to the container.
 builder.Services.AddControllersWithViews();
