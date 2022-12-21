@@ -59,6 +59,8 @@ namespace Highlights.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Create([Bind("Id,Title,Author,TopicId")] Book book)
         {
+            // I have no clue why I need this or how it works
+            ModelState.Remove("Topic");
             if (ModelState.IsValid)
             {
                 _context.Add(book);
