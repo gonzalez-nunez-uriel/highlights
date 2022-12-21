@@ -1,0 +1,10 @@
+{
+  "version": 2,
+  "dgSpecHash": "569kraYy3eT0xele2Al0ofVdIyb5jUrepTMk9WCLSkWQCDBKVBWHf3Xpfpmc7Rk6wqdisJMNL3EtToKdzQfmnQ==",
+  "success": true,
+  "projectFilePath": "/mymnt/devp/dotnet/Highlights/Highlights.csproj",
+  "expectedPackageFiles": [
+    "/home/dotnet/.nuget/packages/microsoft.aspnetcore.app.ref/7.0.0/microsoft.aspnetcore.app.ref.7.0.0.nupkg.sha512"
+  ],
+  "logs": []
+}
