@@ -19,7 +19,6 @@ namespace Highlights.Controllers
             _context = context;
         }
 
-        // GET: Books
         public async Task<IActionResult> Index(int? id, string? topic)
         {
             // Is this the right thing? What is thne standard?
@@ -32,7 +31,20 @@ namespace Highlights.Controllers
             var highlightsContext = _context.Book.Where(b => b.TopicId == id);
             return View(await highlightsContext.ToListAsync());
         }
+        
+        public async Task<IActionResult> ForTopic(int? id, string? topic)
+        {
+            // Is this the right thing? What is thne standard?
+            if (id == null || topic == null || _context.Book == null)
+            {
+                return NotFound();
+            }
 
+            ViewData["Topic"] = topic;
+            var highlightsContext = _context.Book.Where(b => b.TopicId == id);
+            return View(await highlightsContext.ToListAsync());
+        }
+        
         // GET: Books/Details/5
         public async Task<IActionResult> Details(int? id)
         {

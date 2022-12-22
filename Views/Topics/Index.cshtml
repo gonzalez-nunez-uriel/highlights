@@ -14,6 +14,6 @@
 <ul class="text-center">
 @foreach (var item in Model)
 {
-    <p><a class="btn btn-primary" asp-controller="Books" asp-action="Index" asp-route-id="@item.Id" asp-route-topic="@item.Name">@Html.DisplayFor(modelItem => item.Name)</a></p>
+    <p><a class="btn btn-primary" asp-controller="Books" asp-action="ForTopic" asp-route-id="@item.Id" asp-route-topic="@item.Name">@Html.DisplayFor(modelItem => item.Name)</a></p>
 }
 </ul>
