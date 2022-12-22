@@ -8,7 +8,7 @@
     <h1>@ViewData["Topic"]</h1>
 	<div class="d-flex justify-content-between align-items-center w-100">
 		<div id="managers ms-3">
-    		<a class="btn btn-secondary m-2 d-block" asp-action="Add Book">Book Manager</a>
+    		<a class="btn btn-secondary m-2 d-block" asp-action="Index" asp-route-id="@ViewData["TopicId"]" asp-route-topic="@ViewData["Topic"]">Book Manager</a>
         	<a class="btn btn-secondary m-2" asp-action="Add Book">Tags Manager</a>
      	</div>
     	<div id="controls">

@@ -41,6 +41,7 @@ namespace Highlights.Controllers
             }
 
             ViewData["Topic"] = topic;
+            ViewData["TopicId"] = id;            
             var highlightsContext = _context.Book.Where(b => b.TopicId == id);
             return View(await highlightsContext.ToListAsync());
         }
