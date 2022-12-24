@@ -53,9 +53,10 @@ namespace Highlights.Controllers
         }
 
         // GET: Tags/Create
-        public IActionResult Create()
+        public IActionResult Create(int? id, string? topic)
         {
-            ViewData["TopicId"] = new SelectList(_context.Topic, "Id", "Id");
+            ViewData["TopicId"] = id;
+            ViewData["Topic"] = topic;            
             return View();
         }
 
@@ -64,7 +65,7 @@ namespace Highlights.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("Id,Name,Description,Code,TopicId")] Tag tag)
+        public async Task<IActionResult> Create(int? id, string? topic, [Bind("Name,Description,Code,TopicId")] Tag tag)
         {
             // I have no clue why I need this or how it works
             ModelState.Remove("Topic");
@@ -74,7 +75,8 @@ namespace Highlights.Controllers
                 await _context.SaveChangesAsync();
                 return RedirectToAction(nameof(Index));
             }
-            ViewData["TopicId"] = new SelectList(_context.Topic, "Id", "Id", tag.TopicId);
+            ViewData["TopicId"] = id;
+            ViewData["Topic"] = topic;            
             return View(tag);
         }
 
