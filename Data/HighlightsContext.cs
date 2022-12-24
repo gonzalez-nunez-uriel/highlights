@@ -17,5 +17,7 @@ namespace Highlights.Data
         public DbSet<Highlights.Models.Topic> Topic { get; set; } = default!;
 
         public DbSet<Highlights.Models.Book> Book { get; set; } = default!;
+
+        public DbSet<Highlights.Models.Tag> Tag { get; set; } = default!;
     }
 }
