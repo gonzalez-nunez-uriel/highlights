@@ -13,7 +13,7 @@
      	</div>
     	<div id="controls">
         	<div id="controls-top" class="d-flex">
-                <a class="btn btn-primary m-2" asp-action="Add Book">Create New</a>
+                <a class="btn btn-primary m-2" asp-action="Create" asp-route-id="@ViewData["TopicId"]" asp-route-topic="@ViewData["Topic"]">Add Book</a>
                 <a class="btn btn-primary m-2" asp-action="Add Book">Test 1</a>
         	</div>
         	<div id="controls-bottom" class="d-flex justify-content-between">
