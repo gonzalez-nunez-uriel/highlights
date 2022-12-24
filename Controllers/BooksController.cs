@@ -83,10 +83,8 @@ namespace Highlights.Controllers
         {
             // I have no clue why I need this or how it works
             ModelState.Remove("Topic");
-            // ensures id is not null for safe casting
-            if ( id != null && _context.Book != null && ModelState.IsValid)
+            if (ModelState.IsValid)
             {
-                book.TopicId = (int) id;
                 _context.Add(book);
                 await _context.SaveChangesAsync();
                 return RedirectToAction(nameof(Index));
