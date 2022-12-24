@@ -29,7 +29,7 @@ namespace Highlights.Controllers
             
             ViewData["Topic"] = topic;
             ViewData["TopicId"] = id;
-            var highlightsContext = _context.Tag.Include(t => t.Topic); 
+            var highlightsContext = _context.Tag.Where(t => t.TopicId == id); 
             return View(await highlightsContext.ToListAsync());
         }
 
