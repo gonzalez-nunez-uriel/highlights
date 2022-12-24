@@ -20,9 +20,16 @@ namespace Highlights.Controllers
         }
 
         // GET: Tags
-        public async Task<IActionResult> Index()
+        public async Task<IActionResult> Index(int? id, string? topic)
         {
-            var highlightsContext = _context.Tag.Include(t => t.Topic);
+            if(id == null || topic == null || _context.Tag == null)
+            {
+                return NotFound();
+            }
+            
+            ViewData["Topic"] = topic;
+            ViewData["TopicId"] = id;
+            var highlightsContext = _context.Tag.Include(t => t.Topic); 
             return View(await highlightsContext.ToListAsync());
         }
 
