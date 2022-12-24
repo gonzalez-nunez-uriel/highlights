@@ -21,13 +21,14 @@ namespace Highlights.Controllers
 
         public async Task<IActionResult> Index(int? id, string? topic)
         {
-            // Is this the right thing? What is thne standard?
+            // Is this the right thing? What is the standard?
             if (id == null || topic == null || _context.Book == null)
             {
                 return NotFound();
             }
 
             ViewData["Topic"] = topic;
+            ViewData["TopicId"] = id;           
             var highlightsContext = _context.Book.Where(b => b.TopicId == id);
             return View(await highlightsContext.ToListAsync());
         }
@@ -41,7 +42,7 @@ namespace Highlights.Controllers
             }
 
             ViewData["Topic"] = topic;
-            ViewData["TopicId"] = id;            
+            ViewData["TopicId"] = id; 
             var highlightsContext = _context.Book.Where(b => b.TopicId == id);
             return View(await highlightsContext.ToListAsync());
         }
@@ -66,9 +67,10 @@ namespace Highlights.Controllers
         }
 
         // GET: Books/Create
-        public IActionResult Create()
+        public IActionResult Create(int? id, string? topic)
         {
-            ViewData["TopicId"] = new SelectList(_context.Topic, "Id", "Id");
+            ViewData["TopicId"] = id;
+            ViewData["Topic"] = topic;
             return View();
         }
 
@@ -77,17 +79,21 @@ namespace Highlights.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("Id,Title,Author,TopicId")] Book book)
+        public async Task<IActionResult> Create(int? id, string? topic, [Bind("Title,Author,TopicId")] Book book)
         {
             // I have no clue why I need this or how it works
             ModelState.Remove("Topic");
-            if (ModelState.IsValid)
+            // ensures id is not null for safe casting
+            if ( id != null && _context.Book != null && ModelState.IsValid)
             {
+                book.TopicId = (int) id;
                 _context.Add(book);
                 await _context.SaveChangesAsync();
                 return RedirectToAction(nameof(Index));
             }
-            ViewData["TopicId"] = new SelectList(_context.Topic, "Id", "Id", book.TopicId);
+            
+            ViewData["TopicId"] = id;
+            ViewData["Topic"] = topic;
             return View(book);
         }
 
