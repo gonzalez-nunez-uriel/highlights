@@ -61,6 +61,9 @@ namespace Highlights.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Create([Bind("Id,Text,Comment,TopicId,BookId")] Highlight highlight)
         {
+            // I have no clue why I need this or how it works
+            ModelState.Remove("Topic");
+            ModelState.Remove("Book");
             if (ModelState.IsValid)
             {
                 _context.Add(highlight);
@@ -102,6 +105,9 @@ namespace Highlights.Controllers
                 return NotFound();
             }
 
+            // I have no clue why I need this or how it works
+            ModelState.Remove("Topic");
+            ModelState.Remove("Book");
             if (ModelState.IsValid)
             {
                 try
