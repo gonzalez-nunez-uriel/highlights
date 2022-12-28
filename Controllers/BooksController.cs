@@ -69,10 +69,13 @@ namespace Highlights.Controllers
         // GET: Books/Create
         public IActionResult Create(int? id, string? topic, bool isIndex)
         {
-            ViewData["TopicId"] = id;
-            ViewData["Topic"] = topic;
-            ViewData["isIndex"] = isIndex;
-            return View();
+            if (id == null || topic == null || _context.Book == null)
+            {
+                return NotFound();
+            } else {
+                SetViewDataForCreate((int) id, topic, isIndex);
+                return View();
+            }
         }
 
         // POST: Books/Create
@@ -82,24 +85,27 @@ namespace Highlights.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Create(int? id, string? topic, bool isIndex, [Bind("Title,Author,TopicId")] Book book)
         {
-            // I have no clue why I need this or how it works
-            ModelState.Remove("Topic");
-            if (ModelState.IsValid)
+            if (id == null || topic == null || _context.Book == null)
             {
-                _context.Add(book);
-                await _context.SaveChangesAsync();
-                if(isIndex){
-                    return RedirectToAction(nameof(Index), new {id = id, topic = topic});
-                } else {
-                    return RedirectToAction("ForTopic", new {id = id, topic = topic});
+                return NotFound();
+            } else {
+                // I have no clue why I need this or how it works
+                ModelState.Remove("Topic");
+                if (ModelState.IsValid)
+                {
+                    _context.Add(book);
+                    await _context.SaveChangesAsync();
+                    if(isIndex){
+                        return RedirectToAction(nameof(Index), new {id = id, topic = topic});
+                    } else {
+                        return RedirectToAction("ForTopic", new {id = id, topic = topic});
+                    }
+                    
                 }
                 
+                SetViewDataForCreate((int) id, topic, isIndex);
+                return View(book);
             }
-            
-            ViewData["TopicId"] = id;
-            ViewData["Topic"] = topic;
-            ViewData["isIndex"] = isIndex;
-            return View(book);
         }
 
         // GET: Books/Edit/5
@@ -196,6 +202,13 @@ namespace Highlights.Controllers
         private bool BookExists(int id)
         {
           return (_context.Book?.Any(e => e.Id == id)).GetValueOrDefault();
+        }
+
+        private void SetViewDataForCreate(int id, string topic, bool isIndex)
+        {
+            ViewData["TopicId"] = id;
+            ViewData["Topic"] = topic;
+            ViewData["isIndex"] = isIndex;
         }
     }
 }
