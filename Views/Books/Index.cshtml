@@ -6,7 +6,7 @@
 
 <header class="d-flex justify-content-between align-items-center mt-3">
     <h1>@ViewData["Topic"] - Books</h1>
-    <a asp-action="Create" asp-route-id="@ViewData["TopicId"]" asp-route-topic="@ViewData["Topic"]"  class="btn btn-primary">Create New</a>
+    <a asp-action="Create" asp-route-id="@ViewData["TopicId"]" asp-route-topic="@ViewData["Topic"]" asp-route-isIndex="true"  class="btn btn-primary">Create New</a>
 </header>
 
 <table class="table">

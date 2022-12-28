@@ -67,10 +67,11 @@ namespace Highlights.Controllers
         }
 
         // GET: Books/Create
-        public IActionResult Create(int? id, string? topic)
+        public IActionResult Create(int? id, string? topic, bool isIndex)
         {
             ViewData["TopicId"] = id;
             ViewData["Topic"] = topic;
+            ViewData["isIndex"] = isIndex;
             return View();
         }
 
@@ -79,7 +80,7 @@ namespace Highlights.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create(int? id, string? topic, [Bind("Title,Author,TopicId")] Book book)
+        public async Task<IActionResult> Create(int? id, string? topic, bool isIndex, [Bind("Title,Author,TopicId")] Book book)
         {
             // I have no clue why I need this or how it works
             ModelState.Remove("Topic");
@@ -87,11 +88,17 @@ namespace Highlights.Controllers
             {
                 _context.Add(book);
                 await _context.SaveChangesAsync();
-                return RedirectToAction(nameof(Index), new {id = id, topic = topic});
+                if(isIndex){
+                    return RedirectToAction(nameof(Index), new {id = id, topic = topic});
+                } else {
+                    return RedirectToAction("ForTopic", new {id = id, topic = topic});
+                }
+                
             }
             
             ViewData["TopicId"] = id;
             ViewData["Topic"] = topic;
+            ViewData["isIndex"] = isIndex;
             return View(book);
         }
 
