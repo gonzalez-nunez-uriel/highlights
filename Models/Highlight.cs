@@ -9,4 +9,5 @@ public class Highlight
     public Topic Topic { get; set; } = null!;
     public int BookId { get; set; }
     public Book Book { get; set; } = null!;
+    public ICollection<Tag> Tags { get; set; } = null!;
 }

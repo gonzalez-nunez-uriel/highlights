@@ -8,4 +8,5 @@ public class Tag
 	public string? Code { get; set; } = null!;
 	public int TopicId { get; set; }
 	public Topic Topic { get; set; } = null!;
+	public ICollection<Highlight> Highlights { get; set; } = null!;
 }
